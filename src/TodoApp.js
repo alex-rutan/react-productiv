@@ -16,6 +16,7 @@ import EditableTodoList from "./EditableTodoList";
  */
 
 function TodoApp() {
+  const [ todos, setTodos ] = useState([]);
 
   /** add a new todo to list */
   function create(newTodo) {

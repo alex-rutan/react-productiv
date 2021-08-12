@@ -12,44 +12,48 @@ import TodoForm from "./TodoForm";
  * EditableTodoList -> EditableTodo -> { Todo, TodoForm }
  */
 
-function EditableTodo() {
+function EditableTodo({ todo, updateTodo, removeTodo }) {
+  const { isEditable, setIsEditable } = useState(false);
 
   /** Toggle if this is being edited */
-  function toggleEdit() { }
+  function toggleEdit() {
+    isEditable ? setIsEditable(false) : setIsEditable(true);
+  }
 
   /** Call remove fn passed to this. */
-  function handleDelete() { }
+  function handleDelete(todo, removeTodo) {
+    removeTodo(todo.id);
+  }
 
   /** Edit form saved; toggle isEditing and update in ancestor. */
-  function handleSave(formData) { }
+  function handleSave(formData) {
 
-  return (
+  }
+
+  return ( isEditable ? (
       <div className="EditableTodo">
-
-                EITHER
-
-                <TodoForm />
-
-                OR
-
-                <div className="mb-3">
-                  <div className="float-right text-sm-right">
-                    <button
-                        className="EditableTodo-toggle btn-link btn btn-sm"
-                        onClick={toggleEdit}>
-                      Edit
-                    </button>
-                    <button
-                        className="EditableTodo-delBtn btn-link btn btn-sm text-danger"
-                        onClick={handleDelete}>
-                      Del
-                    </button>
-                  </div>
-                  <Todo />
-                </div>
-
+        <TodoForm initialFormData={todo}/>
       </div>
-  );
+    ) : (
+      <div className="EditableTodo">
+        <div className="mb-3">
+          <div className="float-right text-sm-right">
+            <button
+                className="EditableTodo-toggle btn-link btn btn-sm"
+                onClick={() => toggleEdit()}>
+              Edit
+            </button>
+            <button
+                className="EditableTodo-delBtn btn-link btn btn-sm text-danger"
+                onClick={() => handleDelete()}>
+              Del
+            </button>
+          </div>
+          <Todo />
+        </div>
+      </div>
+      )
+  )
 }
 
 export default EditableTodo;
