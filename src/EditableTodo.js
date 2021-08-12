@@ -13,8 +13,7 @@ import TodoForm from "./TodoForm";
  */
 
 function EditableTodo({ todo, updateTodo, removeTodo }) {
-  const { isEditable, setIsEditable } = useState(false);
-
+  const [ isEditable, setIsEditable ] = useState(false);
   /** Toggle if this is being edited */
   function toggleEdit() {
     isEditable ? setIsEditable(false) : setIsEditable(true);
@@ -29,7 +28,7 @@ function EditableTodo({ todo, updateTodo, removeTodo }) {
   function handleSave(formData) {
 
   }
-
+  
   return ( isEditable ? (
       <div className="EditableTodo">
         <TodoForm initialFormData={todo}/>
@@ -49,7 +48,11 @@ function EditableTodo({ todo, updateTodo, removeTodo }) {
               Del
             </button>
           </div>
-          <Todo />
+          <Todo 
+            id={todo.id}
+            title={todo.title}
+            description={todo.description}
+            priority={todo.priority}/>
         </div>
       </div>
       )
