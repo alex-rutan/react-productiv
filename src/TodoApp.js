@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
 
 import TopTodo from "./TopTodo";
+import TodoForm from "./TodoForm";
 import EditableTodoList from "./EditableTodoList";
 
 /** App for managing a todo list.
@@ -27,10 +28,12 @@ function TodoApp({ initialTodos }) {
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
+    setTodos(todos => [...todos, updatedTodo]);
   }
 
   /** delete a todo by id */
   function remove(id) {
+    setTodos(todos => todos.filter(ele => ele.id !== id));
   }
 
   return (
@@ -50,15 +53,17 @@ function TodoApp({ initialTodos }) {
           </div>
 
           <div className="col-md-6">
-            (if no top todo, omit this whole section)
+            {todos ?
             <section className="mb-4">
               <h3>Top Todo</h3>
-              <TopTodo />
+              <TopTodo todos={todos}/>
             </section>
-
+              :
+              ""
+            }
             <section>
-              <h3 className="mb-3">Add Nü</h3>
-              FIXME
+              <h3 className="mb-3">Add Nü Todo</h3>
+              <TodoForm />
             </section>
           </div>
 
