@@ -28,7 +28,12 @@ function TodoApp({ initialTodos }) {
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
-    setTodos(todos => [...todos, updatedTodo]);
+    setTodos(todos => {
+      let updateTodoIdx = todos.findIndex(ele => ele.id === updatedTodo.id);
+      let todosCopy = [...todos];
+      todosCopy[updateTodoIdx] = updatedTodo;
+      return todosCopy;
+    });
   }
 
   /** delete a todo by id */
@@ -41,7 +46,7 @@ function TodoApp({ initialTodos }) {
         <div className="row">
 
           <div className="col-md-6">
-            {todos ?
+            {todos.length > 0 ?
               <EditableTodoList 
                 todos={todos}
                 update={update}
@@ -53,7 +58,7 @@ function TodoApp({ initialTodos }) {
           </div>
 
           <div className="col-md-6">
-            {todos ?
+            {todos.length > 0 ?
             <section className="mb-4">
               <h3>Top Todo</h3>
               <TopTodo todos={todos}/>
@@ -63,7 +68,7 @@ function TodoApp({ initialTodos }) {
             }
             <section>
               <h3 className="mb-3">Add Nü Todo</h3>
-              <TodoForm />
+              <TodoForm handleSave={create}/>
             </section>
           </div>
 
